@@ -408,10 +408,10 @@ The booking details have been sent to our team for processing.`);
     };
 
     const frequencyMultipliers = {
-      onetime: 1.5,    // 50% more for one-time service
+      onetime: 1.0,    // Same as bi-weekly rate
       weekly: 0.8,     // 20% discount for weekly (best rate)
       biweekly: 1.0,   // Base rate for bi-weekly
-      monthly: 1.3     // 30% more for monthly
+      monthly: 1.0     // Same as bi-weekly rate
     };
 
     const sessionsPerYear = {
@@ -691,7 +691,7 @@ The booking details have been sent to our team for processing.`);
               </div>
               {frequency === 'onetime' && (
                 <div className="savings-note" style={{background: 'linear-gradient(135deg, #6f42c1 0%, #9c27b0 100())'}}>
-                  ⚡ <span className="savings-text">One-time service includes premium rate</span>
+                  ⚡ <span className="savings-text">One-time service - standard rate</span>
                 </div>
               )}
               {frequency === 'weekly' && (
@@ -700,13 +700,13 @@ The booking details have been sent to our team for processing.`);
                 </div>
               )}
               {frequency === 'biweekly' && (
-                <div className="savings-note" style={{background: 'linear-gradient(135deg, #ffc107 0%, #fd7e14 100())'}}>
-                  💡 <span className="savings-text">Switch to weekly and save 20%!</span>
+                <div className="savings-note" style={{background: 'linear-gradient(135deg, #17a2b8 0%, #138496 100())'}}>
+                  ✅ <span className="savings-text">Standard rate - great value!</span>
                 </div>
               )}
               {frequency === 'monthly' && (
-                <div className="savings-note" style={{background: 'linear-gradient(135deg, #dc3545 0%, #c82333 100())'}}>
-                  💡 <span className="savings-text">Switch to weekly and save big!</span>
+                <div className="savings-note" style={{background: 'linear-gradient(135deg, #17a2b8 0%, #138496 100())'}}>
+                  📅 <span className="savings-text">Monthly service - standard rate</span>
                 </div>
               )}
             </div>
