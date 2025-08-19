@@ -11,6 +11,45 @@
   padding: 2rem;
 }
 
+/* App Title Section */
+.app-title-section {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.app-title-section h1 {
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.expert-service-tagline {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin: 1rem auto;
+  display: inline-block;
+  box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+  animation: pulse-glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes pulse-glow {
+  from {
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+  }
+  to {
+    box-shadow: 0 6px 20px rgba(40, 167, 69, 0.5);
+  }
+}
+
+.app-description {
+  color: #6c757d;
+  font-size: 1rem;
+  margin-bottom: 0;
+}
+
 /* Step Progress Indicator */
 .step-progress {
   display: flex;
@@ -100,6 +139,12 @@
   .app-title-section h1 {
     font-size: 1.8rem;
     margin-bottom: 0.5rem;
+  }
+
+  .expert-service-tagline {
+    font-size: 1rem;
+    padding: 0.65rem 1.25rem;
+    margin: 0.75rem auto;
   }
 
   .app-description {
@@ -376,6 +421,12 @@
 
   .app-title-section h1 {
     font-size: 1.5rem;
+  }
+
+  .expert-service-tagline {
+    font-size: 0.9rem;
+    padding: 0.6rem 1rem;
+    margin: 0.5rem auto;
   }
 
   .satellite-map {

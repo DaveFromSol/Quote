@@ -477,6 +477,7 @@ The booking details have been sent to our team for processing.`);
     <div className="instant-quote-form">
       <div className="app-title-section">
         <h1>🌿 Lawn Care Quote Generator</h1>
+        <p className="expert-service-tagline">⚡ Expert lawn service scheduled within 24 hours!</p>
         <p className="app-description">Use satellite imagery to measure your lawn and get an instant quote</p>
       </div>
 
