@@ -408,12 +408,14 @@ The booking details have been sent to our team for processing.`);
     };
 
     const frequencyMultipliers = {
+      onetime: 1.5,    // 50% more for one-time service
       weekly: 0.8,     // 20% discount for weekly (best rate)
       biweekly: 1.0,   // Base rate for bi-weekly
       monthly: 1.3     // 30% more for monthly
     };
 
     const sessionsPerYear = {
+      onetime: 1,
       weekly: 26,
       biweekly: 13,
       monthly: 6
@@ -655,6 +657,12 @@ The booking details have been sent to our team for processing.`);
             <h3>Choose Your Schedule:</h3>
             <div className="frequency-buttons">
               <button 
+                className={`freq-btn ${frequency === 'onetime' ? 'active' : ''}`}
+                onClick={() => handleFrequencyChange('onetime')}
+              >
+                One Time
+              </button>
+              <button 
                 className={`freq-btn ${frequency === 'weekly' ? 'active' : ''}`}
                 onClick={() => handleFrequencyChange('weekly')}
               >
@@ -678,9 +686,14 @@ The booking details have been sent to our team for processing.`);
           <div className="pricing-display">
             <div className="price-card">
               <div className="price-line">
-                <span>Price per cut:</span>
+                <span>{frequency === 'onetime' ? 'Total Service Price:' : 'Price per cut:'}</span>
                 <span className="price">${quote.perVisit.toFixed(2)}</span>
               </div>
+              {frequency === 'onetime' && (
+                <div className="savings-note" style={{background: 'linear-gradient(135deg, #6f42c1 0%, #9c27b0 100())'}}>
+                  ⚡ <span className="savings-text">One-time service includes premium rate</span>
+                </div>
+              )}
               {frequency === 'weekly' && (
                 <div className="savings-note">
                   💰 <span className="savings-text">Best rate! You save 20% with weekly service!</span>
@@ -818,10 +831,10 @@ The booking details have been sent to our team for processing.`);
                 </div>
                 <div className="summary-item">
                   <span className="label">Service Frequency:</span>
-                  <span className="value">{frequency.charAt(0).toUpperCase() + frequency.slice(1)}</span>
+                  <span className="value">{frequency === 'onetime' ? 'One Time Service' : frequency.charAt(0).toUpperCase() + frequency.slice(1)}</span>
                 </div>
                 <div className="summary-item">
-                  <span className="label">Price per Visit:</span>
+                  <span className="label">{frequency === 'onetime' ? 'Total Price:' : 'Price per Visit:'}</span>
                   <span className="value">${quote.perVisit.toFixed(2)}</span>
                 </div>
                 <div className="summary-item">
