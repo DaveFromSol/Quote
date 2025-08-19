@@ -335,7 +335,10 @@ const InstantQuoteForm = ({ onQuoteGenerated }) => {
 
     // Send email notification via backend API
     try {
-      const response = await fetch('http://localhost:3001/api/send-booking', {
+      // Use environment variable for API endpoint, fallback to localhost for development
+      const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:3001/api/send-booking';
+      
+      const response = await fetch(apiEndpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

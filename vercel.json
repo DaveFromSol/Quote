@@ -1,0 +1,10 @@
+{
+  "functions": {
+    "api/send-booking.js": {
+      "maxDuration": 10
+    }
+  },
+  "buildCommand": "npm run build",
+  "outputDirectory": "build",
+  "framework": "create-react-app"
+}
