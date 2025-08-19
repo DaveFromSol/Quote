@@ -335,8 +335,9 @@ const InstantQuoteForm = ({ onQuoteGenerated }) => {
 
     // Send email notification via backend API
     try {
-      // Use environment variable for API endpoint, fallback to localhost for development
-      const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:3001/api/send-booking';
+      // Use environment variable for API endpoint, fallback to relative path or localhost
+      const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 
+                         (process.env.NODE_ENV === 'production' ? '/api/send-booking' : 'http://localhost:3001/api/send-booking');
       
       const response = await fetch(apiEndpoint, {
         method: 'POST',
