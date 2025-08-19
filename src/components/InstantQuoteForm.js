@@ -124,7 +124,12 @@ const InstantQuoteForm = ({ onQuoteGenerated }) => {
         tilt: 0,
         mapTypeControl: false,
         streetViewControl: false,
-        fullscreenControl: false
+        fullscreenControl: false,
+        gestureHandling: 'cooperative', // Better mobile touch handling
+        zoomControl: true,
+        zoomControlOptions: {
+          position: window.google.maps.ControlPosition.RIGHT_BOTTOM
+        }
       });
       
       // Initialize drawing manager for lawn area selection
@@ -548,11 +553,12 @@ The booking details have been sent to our team for processing.`);
             <div className="map-instructions">
               <p><strong>Instructions:</strong></p>
               <ol>
-                <li>Use the polygon tool above the map to draw around your lawn areas</li>
-                <li>Click points around the edges of your grass to create an outline</li>
-                <li>Click the first point again to complete the selection</li>
-                <li><strong>Draw multiple areas!</strong> Front yard, back yard, side yards - each gets a different color</li>
-                <li>Click any polygon to remove it, or drag corners to adjust</li>
+                <li>📱 <strong>Mobile tip:</strong> Use two fingers to pan and zoom the map</li>
+                <li>🔧 Use the polygon tool above the map to draw around your lawn areas</li>
+                <li>👆 Tap points around the edges of your grass to create an outline</li>
+                <li>✅ Tap the first point again to complete the selection</li>
+                <li>🎨 <strong>Draw multiple areas!</strong> Front yard, back yard, side yards - each gets a different color</li>
+                <li>❌ Tap any polygon to remove it, or drag corners to adjust</li>
               </ol>
             </div>
           </div>

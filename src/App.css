@@ -70,20 +70,374 @@
   font-size: 0.9rem;
 }
 
+/* Mobile Optimizations */
 @media (max-width: 768px) {
+  .lawn-quote-app {
+    padding: 1rem;
+    max-width: 100%;
+  }
+
+  /* Step Progress Mobile */
   .step-progress {
     flex-wrap: wrap;
     gap: 0.5rem;
+    margin: 1rem 0;
   }
   
   .step-item {
     padding: 0.5rem 1rem;
     font-size: 0.8rem;
+    flex: 1;
+    min-width: calc(50% - 0.25rem);
+    justify-content: center;
   }
   
   .step-label {
+    font-size: 0.7rem;
+  }
+
+  /* App Title Mobile */
+  .app-title-section h1 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .app-description {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+
+  /* Address Input Mobile */
+  .address-input {
+    font-size: 16px; /* Prevents zoom on iOS */
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .quote-btn {
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+
+  .input-wrapper {
+    flex-direction: column;
+  }
+
+  .demo-hint {
+    font-size: 0.85rem;
+    padding: 1rem;
+    margin: 1rem 0;
+    line-height: 1.4;
+  }
+
+  /* Map Section Mobile */
+  .satellite-map {
+    height: 400px !important;
+    border-radius: 8px;
+  }
+
+  .map-header h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .map-instructions {
+    font-size: 0.85rem;
+    padding: 1rem;
+  }
+
+  .map-instructions ol {
+    padding-left: 1.2rem;
+  }
+
+  .map-instructions li {
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+  }
+
+  /* Area Results Mobile */
+  .selections-list {
+    gap: 0.5rem;
+  }
+
+  .selection-item {
+    padding: 0.75rem;
+    font-size: 0.9rem;
+    flex-wrap: wrap;
+  }
+
+  .selection-text {
+    flex: 1;
+    min-width: 150px;
+  }
+
+  .area-display {
+    text-align: center;
+    margin: 1rem 0;
+  }
+
+  .area-size {
+    font-size: 1.8rem;
+    margin: 0.5rem 0;
+  }
+
+  .area-acres {
+    font-size: 1rem;
+  }
+
+  /* Map Actions Mobile */
+  .map-actions {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .map-actions button {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+  }
+
+  /* Quote Display Mobile */
+  .instant-quote-display {
+    margin: 1rem 0;
+  }
+
+  .quote-header h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .lawn-size, .address-display {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Services Mobile */
+  .service-tags {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .service-tag {
+    padding: 0.75rem;
+    font-size: 0.9rem;
+    text-align: center;
+  }
+
+  /* Frequency Buttons Mobile */
+  .frequency-buttons {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .freq-btn {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+  }
+
+  /* Price Card Mobile */
+  .price-card {
+    padding: 1.5rem;
+    margin: 1rem 0;
+  }
+
+  .price-line {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .price {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  .savings-note {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 8px;
+  }
+
+  .savings-text {
+    font-size: 0.9rem;
+  }
+
+  /* Quote Actions Mobile */
+  .quote-actions {
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .quote-actions button {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+  }
+
+  /* Booking Form Mobile */
+  .booking-form-section {
+    margin: 1rem 0;
+  }
+
+  .booking-header h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .form-input, .form-textarea {
+    font-size: 16px; /* Prevents zoom on iOS */
+    padding: 1rem;
+    border-radius: 8px;
+  }
+
+  .form-textarea {
+    min-height: 100px;
+  }
+
+  /* Service Summary Mobile */
+  .summary-details {
+    gap: 0.75rem;
+  }
+
+  .summary-item {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.75rem;
+    background: #f8f9fa;
+    border-radius: 6px;
+  }
+
+  .summary-item .label {
+    font-size: 0.85rem;
+    margin-bottom: 0.25rem;
+    color: #6c757d;
+  }
+
+  .summary-item .value {
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+
+  /* Booking Actions Mobile */
+  .booking-actions {
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .booking-actions button {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+  }
+
+  /* Loading States Mobile */
+  .loading-indicator {
+    padding: 2rem 1rem;
+    text-align: center;
+  }
+
+  .loading-indicator p {
+    font-size: 0.9rem;
+    margin: 0.5rem 0;
+  }
+
+  /* Error Messages Mobile */
+  .error-message {
+    padding: 1rem;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+    border-radius: 8px;
+  }
+}
+
+/* Extra Small Mobile (phones in portrait) */
+@media (max-width: 480px) {
+  .lawn-quote-app {
+    padding: 0.5rem;
+  }
+
+  .step-item {
+    font-size: 0.7rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .step-label {
     display: none;
   }
+
+  .app-title-section h1 {
+    font-size: 1.5rem;
+  }
+
+  .satellite-map {
+    height: 350px !important;
+  }
+
+  .map-instructions {
+    padding: 0.75rem;
+    font-size: 0.8rem;
+  }
+
+  .price-card {
+    padding: 1rem;
+  }
+
+  .area-size {
+    font-size: 1.5rem;
+  }
+
+  .form-input, .form-textarea {
+    padding: 0.875rem;
+  }
+}
+
+/* Touch-friendly interactions */
+button, .freq-btn, .quote-btn, input[type="submit"] {
+  min-height: 44px; /* Apple's recommended minimum touch target */
+  min-width: 44px;
+  touch-action: manipulation; /* Prevent double-tap zoom */
+}
+
+/* Improved focus states for mobile */
+input:focus, textarea:focus, select:focus {
+  outline: 2px solid #667eea;
+  outline-offset: 2px;
+}
+
+/* Prevent text selection on buttons */
+button, .freq-btn, .quote-btn {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Smooth scrolling for mobile */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Better tap highlighting */
+* {
+  -webkit-tap-highlight-color: rgba(102, 126, 234, 0.2);
+}
+
+/* Prevent horizontal scrolling on mobile */
+body {
+  overflow-x: hidden;
+}
+
+.lawn-quote-app {
+  overflow-x: hidden;
 }
 
 /* Removed header styles - component will be embedded */
