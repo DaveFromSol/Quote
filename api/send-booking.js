@@ -1,6 +1,26 @@
 // Vercel serverless function for storing booking quotes
-import fs from 'fs';
-import path from 'path';
+import { initializeApp, getApps } from 'firebase/app';
+import { getFirestore, collection, addDoc, serverTimestamp } from 'firebase/firestore';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBG3Kot5_in0V-FTJqvYZenYmMdPeg1xVg",
+  authDomain: "gdlocation-16372.firebaseapp.com",
+  projectId: "gdlocation-16372",
+  storageBucket: "gdlocation-16372.firebasestorage.app",
+  messagingSenderId: "9627340888",
+  appId: "1:9627340888:web:fc28cb9908a6362e72fa2d",
+  measurementId: "G-2QYH6VCYYQ"
+};
+
+// Initialize Firebase
+let app;
+if (getApps().length === 0) {
+  app = initializeApp(firebaseConfig);
+} else {
+  app = getApps()[0];
+}
+
+const db = getFirestore(app);
 
 export default async function handler(req, res) {
   // Set CORS headers
@@ -23,43 +43,23 @@ export default async function handler(req, res) {
   try {
     const { customer, service, timestamp } = req.body;
 
-    // Create quote object with unique ID
+    // Create quote object
     const quote = {
-      id: Date.now() + Math.random(),
       customer,
       service,
       timestamp: timestamp || new Date().toISOString(),
-      status: 'new'
+      status: 'new',
+      createdAt: serverTimestamp()
     };
 
-    // Try to read existing quotes
-    let quotes = [];
-    try {
-      // In Vercel, we'll use environment variables or external storage
-      // For now, we'll simulate storage with in-memory array
-      const quotesData = process.env.QUOTES_DATA || '[]';
-      quotes = JSON.parse(quotesData);
-    } catch (error) {
-      console.log('No existing quotes found, starting fresh');
-      quotes = [];
-    }
-
-    // Add new quote
-    quotes.push(quote);
-
-    // Keep only last 100 quotes to prevent memory issues
-    if (quotes.length > 100) {
-      quotes = quotes.slice(-100);
-    }
-
-    // Store quotes (in production, you'd use a proper database)
-    process.env.QUOTES_DATA = JSON.stringify(quotes);
-
-    console.log('Quote stored successfully:', quote.id);
+    // Add quote to Firestore
+    const docRef = await addDoc(collection(db, 'quotes'), quote);
+    
+    console.log('Quote stored successfully in Firestore:', docRef.id);
     res.json({ 
       success: true, 
       message: 'Quote submitted successfully',
-      quoteId: quote.id 
+      quoteId: docRef.id 
     });
     
   } catch (error) {

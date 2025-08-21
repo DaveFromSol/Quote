@@ -1,4 +1,27 @@
 // Vercel serverless function for deleting quotes
+import { initializeApp, getApps } from 'firebase/app';
+import { getFirestore, doc, deleteDoc } from 'firebase/firestore';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBG3Kot5_in0V-FTJqvYZenYmMdPeg1xVg",
+  authDomain: "gdlocation-16372.firebaseapp.com",
+  projectId: "gdlocation-16372",
+  storageBucket: "gdlocation-16372.firebasestorage.app",
+  messagingSenderId: "9627340888",
+  appId: "1:9627340888:web:fc28cb9908a6362e72fa2d",
+  measurementId: "G-2QYH6VCYYQ"
+};
+
+// Initialize Firebase
+let app;
+if (getApps().length === 0) {
+  app = initializeApp(firebaseConfig);
+} else {
+  app = getApps()[0];
+}
+
+const db = getFirestore(app);
+
 export default async function handler(req, res) {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Credentials', true);
@@ -24,27 +47,10 @@ export default async function handler(req, res) {
       return res.status(400).json({ success: false, error: 'Quote ID required' });
     }
 
-    // Retrieve existing quotes
-    let quotes = [];
-    try {
-      const quotesData = process.env.QUOTES_DATA || '[]';
-      quotes = JSON.parse(quotesData);
-    } catch (error) {
-      quotes = [];
-    }
+    // Delete quote from Firestore
+    await deleteDoc(doc(db, 'quotes', quoteId));
 
-    // Find and remove the quote
-    const initialLength = quotes.length;
-    quotes = quotes.filter(quote => quote.id !== quoteId);
-
-    if (quotes.length === initialLength) {
-      return res.status(404).json({ success: false, error: 'Quote not found' });
-    }
-
-    // Update storage
-    process.env.QUOTES_DATA = JSON.stringify(quotes);
-
-    console.log(`Quote ${quoteId} deleted successfully`);
+    console.log(`Quote ${quoteId} deleted successfully from Firestore`);
     res.json({ 
       success: true, 
       message: 'Quote deleted successfully' 

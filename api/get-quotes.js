@@ -1,4 +1,27 @@
 // Vercel serverless function for retrieving quotes
+import { initializeApp, getApps } from 'firebase/app';
+import { getFirestore, collection, getDocs, orderBy, query } from 'firebase/firestore';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBG3Kot5_in0V-FTJqvYZenYmMdPeg1xVg",
+  authDomain: "gdlocation-16372.firebaseapp.com",
+  projectId: "gdlocation-16372",
+  storageBucket: "gdlocation-16372.firebasestorage.app",
+  messagingSenderId: "9627340888",
+  appId: "1:9627340888:web:fc28cb9908a6362e72fa2d",
+  measurementId: "G-2QYH6VCYYQ"
+};
+
+// Initialize Firebase
+let app;
+if (getApps().length === 0) {
+  app = initializeApp(firebaseConfig);
+} else {
+  app = getApps()[0];
+}
+
+const db = getFirestore(app);
+
 export default async function handler(req, res) {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Credentials', true);
@@ -18,20 +41,19 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Retrieve quotes from storage
-    let quotes = [];
-    try {
-      const quotesData = process.env.QUOTES_DATA || '[]';
-      quotes = JSON.parse(quotesData);
-    } catch (error) {
-      console.log('No quotes found');
-      quotes = [];
-    }
+    // Get quotes from Firestore, ordered by creation time (newest first)
+    const q = query(collection(db, 'quotes'), orderBy('createdAt', 'desc'));
+    const snapshot = await getDocs(q);
 
-    // Sort by timestamp (newest first)
-    quotes.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+    const quotes = [];
+    snapshot.forEach(doc => {
+      quotes.push({
+        id: doc.id,
+        ...doc.data()
+      });
+    });
 
-    console.log(`Retrieved ${quotes.length} quotes`);
+    console.log(`Retrieved ${quotes.length} quotes from Firestore`);
     res.json({ 
       success: true, 
       quotes: quotes 

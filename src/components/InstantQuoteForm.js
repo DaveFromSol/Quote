@@ -1,4 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { db } from '../firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { loadGoogleMaps } from '../utils/googleMapsLoader';
 
 const InstantQuoteForm = ({ onQuoteGenerated }) => {
@@ -333,31 +335,29 @@ const InstantQuoteForm = ({ onQuoteGenerated }) => {
 
     console.log('Booking submitted:', bookingData);
 
-    // Send email notification via backend API
+    // Store quote directly in Firestore
     try {
-      // Use environment variable for API endpoint, fallback to relative path or localhost
-      const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 
-                         (process.env.NODE_ENV === 'production' ? '/api/send-booking' : 'http://localhost:3001/api/send-booking');
-      
-      const response = await fetch(apiEndpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      const quoteData = {
+        customer: customerInfo,
+        service: {
+          address: quote.address,
+          lawnArea: quote.lawnArea,
+          frequency: frequency,
+          pricePerVisit: quote.perVisit,
+          annualTotal: quote.seasonal,
+          selectionCount: quote.selectionCount
         },
-        body: JSON.stringify(bookingData)
-      });
+        timestamp: new Date().toISOString(),
+        status: 'new',
+        createdAt: serverTimestamp()
+      };
 
-      const result = await response.json();
-      
-      if (result.success) {
-        console.log('Email sent successfully to david.richter1212@gmail.com');
-      } else {
-        console.error('Failed to send email:', result.error);
-      }
+      const docRef = await addDoc(collection(db, 'quotes'), quoteData);
+      console.log('Quote stored successfully in Firestore:', docRef.id);
       
     } catch (error) {
-      console.error('Error sending booking notification:', error);
-      // Don't block the user experience if email fails
+      console.error('Error storing quote:', error);
+      // Don't block the user experience if storage fails
     }
     
     // Show confirmation
@@ -510,7 +510,7 @@ The booking details have been sent to our team for processing.`);
       {/* Step 1: Address Input */}
       {currentStep === 1 && (
         <div className="address-section">
-        <form onSubmit={handleManualSubmit} className="address-form">
+          <form onSubmit={handleManualSubmit} className="address-form">
           <div className="input-wrapper">
             <input
               ref={inputRef}

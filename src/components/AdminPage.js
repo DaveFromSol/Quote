@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { db } from '../firebase';
+import { collection, getDocs, deleteDoc, doc, orderBy, query } from 'firebase/firestore';
 
 const AdminPage = () => {
   const [quotes, setQuotes] = useState([]);
@@ -11,20 +13,22 @@ const AdminPage = () => {
 
   const fetchQuotes = async () => {
     try {
-      // Use Vercel API endpoint for getting quotes
-      const baseUrl = process.env.REACT_APP_API_ENDPOINT ? 
-                     process.env.REACT_APP_API_ENDPOINT.replace('/send-booking', '') : 
-                     (process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3001');
-      
-      const response = await fetch(`${baseUrl}/api/get-quotes`);
-      const result = await response.json();
-      
-      if (result.success) {
-        setQuotes(result.quotes || []);
-      } else {
-        setError('Failed to fetch quotes');
-      }
+      // Get quotes directly from Firestore
+      const q = query(collection(db, 'quotes'), orderBy('createdAt', 'desc'));
+      const snapshot = await getDocs(q);
+
+      const quotesData = [];
+      snapshot.forEach(doc => {
+        quotesData.push({
+          id: doc.id,
+          ...doc.data()
+        });
+      });
+
+      setQuotes(quotesData);
+      console.log(`Retrieved ${quotesData.length} quotes from Firestore`);
     } catch (err) {
+      console.error('Error loading quotes:', err);
       setError('Error loading quotes: ' + err.message);
     } finally {
       setLoading(false);
@@ -37,27 +41,14 @@ const AdminPage = () => {
     }
 
     try {
-      // Use Vercel API endpoint for deleting quotes
-      const baseUrl = process.env.REACT_APP_API_ENDPOINT ? 
-                     process.env.REACT_APP_API_ENDPOINT.replace('/send-booking', '') : 
-                     (process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3001');
+      // Delete quote directly from Firestore
+      await deleteDoc(doc(db, 'quotes', quoteId));
       
-      const response = await fetch(`${baseUrl}/api/delete-quote`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ quoteId })
-      });
-
-      const result = await response.json();
-      
-      if (result.success) {
-        setQuotes(quotes.filter(quote => quote.id !== quoteId));
-      } else {
-        alert('Failed to delete quote');
-      }
+      // Update local state
+      setQuotes(quotes.filter(quote => quote.id !== quoteId));
+      console.log(`Quote ${quoteId} deleted successfully from Firestore`);
     } catch (err) {
+      console.error('Error deleting quote:', err);
       alert('Error deleting quote: ' + err.message);
     }
   };
