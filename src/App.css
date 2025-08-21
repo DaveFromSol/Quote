@@ -491,6 +491,249 @@ body {
   overflow-x: hidden;
 }
 
+/* Admin Page Styles */
+.admin-page {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: #f8f9fa;
+  min-height: 100vh;
+}
+
+.admin-header {
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.admin-header h1 {
+  color: #333;
+  margin: 0;
+  font-size: 2rem;
+}
+
+.admin-stats {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.stat-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  text-align: center;
+  min-width: 120px;
+}
+
+.stat-number {
+  display: block;
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.refresh-btn {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.refresh-btn:hover {
+  background: #218838;
+  transform: translateY(-2px);
+}
+
+.quotes-container {
+  background: white;
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.no-quotes {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #6c757d;
+}
+
+.no-quotes h3 {
+  margin-bottom: 1rem;
+  color: #495057;
+}
+
+.quotes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 2rem;
+}
+
+.quote-card {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 2px solid #e9ecef;
+  transition: all 0.3s ease;
+}
+
+.quote-card:hover {
+  border-color: #667eea;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
+}
+
+.quote-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.customer-name h3 {
+  margin: 0 0 0.25rem 0;
+  color: #333;
+  font-size: 1.3rem;
+}
+
+.quote-date {
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+.delete-btn {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.delete-btn:hover {
+  background: #c82333;
+  transform: scale(1.1);
+}
+
+.quote-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.quote-details h4 {
+  margin: 0 0 0.75rem 0;
+  color: #495057;
+  font-size: 1.1rem;
+  border-bottom: 1px solid #dee2e6;
+  padding-bottom: 0.5rem;
+}
+
+.quote-details p {
+  margin: 0.25rem 0;
+  color: #6c757d;
+  line-height: 1.4;
+}
+
+.quote-details strong {
+  color: #495057;
+}
+
+.customer-info {
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+  border-left: 4px solid #17a2b8;
+}
+
+.service-info {
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+  border-left: 4px solid #28a745;
+}
+
+.pricing-info {
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+  border-left: 4px solid #ffc107;
+}
+
+.notes-info {
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+  border-left: 4px solid #6f42c1;
+}
+
+.retry-btn {
+  background: #667eea;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 1rem;
+}
+
+/* Mobile Admin Styles */
+@media (max-width: 768px) {
+  .admin-page {
+    padding: 1rem;
+  }
+  
+  .admin-header {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .admin-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .admin-stats {
+    justify-content: center;
+  }
+  
+  .quotes-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .quote-card {
+    padding: 1rem;
+  }
+  
+  .quote-header {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+}
+
 /* Removed header styles - component will be embedded */
 
 .progress-indicator {
